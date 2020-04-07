@@ -1,5 +1,10 @@
 package fr.uvsq.uvsq21602576.pglp_5_1;
 
+/**
+ * Classe abstraite du DAO.
+ * @author Flora
+ * @param <T>   Classe des objets manipulés
+ */
 public abstract class DAO<T> {
     
     /**
