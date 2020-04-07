@@ -8,13 +8,14 @@ import java.util.List;
 
 /**
  * Représente un personnel.
- * Possède un nom et prénom,
- * une fonction, une date de naissance
- * et une liste de numéros de téléphone.
+ * Possède un nom et prénom, une fonction, une date de naissance et une liste de
+ * numéros de téléphone.
  * @author Flora
  */
 public final class Personnel implements Composant, Serializable {
 
+    /** Identifiant unique. */
+    private final int id;
     /** Nom du personnel. */
     private final String nom;
     /** Prenom du personnel. */
@@ -31,6 +32,10 @@ public final class Personnel implements Composant, Serializable {
      * @author Flora
      */
     public static class Builder {
+        /**
+         * Identifiant unique.
+         */
+        private final int id;
         /** Nom du personnel. */
         private final String nom;
         /** Prenom du personnel. */
@@ -38,8 +43,9 @@ public final class Personnel implements Composant, Serializable {
         /** Date de naissance du personnel. */
         private final LocalDate dateNaissance;
 
-        /** Fonction du personnel.
-         * Par défaut : "Employé". */
+        /**
+         * Fonction du personnel. Par défaut : "Employé".
+         */
         private String fonction = "Employé";
         /** Liste de numeros de téléphone. */
         private ArrayList<Telephone> numeros;
@@ -47,13 +53,15 @@ public final class Personnel implements Composant, Serializable {
         /**
          * Constructeur.
          * Crée un builder pour Personnel.
+         * @param i Identifiant du personnel
          * @param n Nom du personnel
-         * @param p  Prenom du personnel
-         * @param date   Date de naissance du personnel
-         * @param num  Un numéro de téléphone
+         * @param p Prenom du personnel
+         * @param date Date de naissance du personnel
+         * @param num Un numéro de téléphone
          */
-        public Builder(final String n, final String p,
+        public Builder(final int i, final String n, final String p,
                 final LocalDate date, final Telephone num) {
+            this.id = i;
             this.nom = n;
             this.prenom = p;
             this.dateNaissance = date;
@@ -63,8 +71,8 @@ public final class Personnel implements Composant, Serializable {
 
         /**
          * Change la fonction du Personnel.
-         * @param f    Nouvelle fonction
-         * @return    Builder du Personnel
+         * @param f Nouvelle fonction
+         * @return Builder du Personnel
          */
         public Builder fonction(final String f) {
             this.fonction = f;
@@ -73,8 +81,8 @@ public final class Personnel implements Composant, Serializable {
 
         /**
          * Ajoute un numéro de téléphone.
-         * @param num  Numéro à ajouter
-         * @return    Builder du Personnel
+         * @param num Numéro à ajouter
+         * @return Builder du Personnel
          */
         public Builder addNumero(final Telephone num) {
             this.numeros.add(num);
@@ -84,7 +92,7 @@ public final class Personnel implements Composant, Serializable {
         /**
          * Build.
          * Retourne le Personnel crée à partir de ce Builder.
-         * @return    Personnel issus du Builder.
+         * @return Personnel issus du Builder.
          */
         public Personnel build() {
             return new Personnel(this);
@@ -94,9 +102,10 @@ public final class Personnel implements Composant, Serializable {
     /**
      * Constructeur.
      * Crée un Personnel à partir des informations du builder.
-     * @param builder   Builder du Personnel
+     * @param builder Builder du Personnel
      */
     private Personnel(final Builder builder) {
+        this.id = builder.id;
         this.nom = builder.nom;
         this.prenom = builder.prenom;
         this.dateNaissance = builder.dateNaissance;
@@ -106,7 +115,7 @@ public final class Personnel implements Composant, Serializable {
 
     /**
      * Retourne le nom du personnel.
-     * @return  Nom du personnel
+     * @return Nom du personnel
      */
     public String getNom() {
         return nom;
@@ -114,7 +123,7 @@ public final class Personnel implements Composant, Serializable {
 
     /**
      * Retourne le prénom du personnel.
-     * @return  prénom du personnel
+     * @return prénom du personnel
      */
     public String getPrenom() {
         return prenom;
@@ -139,16 +148,24 @@ public final class Personnel implements Composant, Serializable {
     /**
      * Retourne une liste non modifiable.
      * Des numeros de téléphones du personnel
-     * @return  liste de numeros de téléphones
+     * @return liste de numeros de téléphones
      */
     public List<Telephone> getNumeros() {
         return Collections.unmodifiableList(numeros);
     }
 
     /**
+     * Retourne l'identifiant.
+     * @return Identifiant
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
      * Retourne une chaine de caractère représentant le personnel.
-     * Sous la forme "nom prenom, fonction
-     * (date de naissance) [numeros de teléphone]
+     * Sous la forme "nom prenom, fonction (date de naissance) [numeros de
+     * teléphone]
      * @return représentation textuelle du Personnel
      */
     @Override
@@ -189,19 +206,15 @@ public final class Personnel implements Composant, Serializable {
                 + ((dateNaissance == null) ? 0 : dateNaissance.hashCode());
         result = prime * result
                 + ((fonction == null) ? 0 : fonction.hashCode());
-        result = prime * result
-                + ((nom == null) ? 0 : nom.hashCode());
-        result = prime * result
-                + ((numeros == null) ? 0 : numeros.hashCode());
-        result = prime * result
-                + ((prenom == null) ? 0 : prenom.hashCode());
+        result = prime * result + ((nom == null) ? 0 : nom.hashCode());
+        result = prime * result + ((numeros == null) ? 0 : numeros.hashCode());
+        result = prime * result + ((prenom == null) ? 0 : prenom.hashCode());
         return result;
     }
 
     /**
      * Teste si deux personnel sont égaux.
-     * Deux personnels sont égaux si toutes leurs
-     * caractéristiques sont égales.
+     * Deux personnels sont égaux si toutes leurs caractéristiques sont égales.
      * @param obj personnel à comparer
      * @return true si égaux, false sinon
      */

@@ -9,7 +9,7 @@ public interface IterableComposant {
 
     /**
      * Retourne un iterateur de composant.
-     * @return  Iterateur
+     * @return Iterateur
      */
     IterateurComposant iterateur();
 }

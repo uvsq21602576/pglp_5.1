@@ -9,11 +9,11 @@ import java.util.ArrayList;
  * Implémentes Composant ainsi que IterableComposant.
  * @author Flora
  */
-/**
- * @author Flora
- *
- */
 public class Groupe implements Composant, IterableComposant, Serializable {
+    /**
+     * Identifiant unique d'annuaire.
+     */
+    private final int id;
     /**
      * Nom du groupe.
      */
@@ -26,9 +26,11 @@ public class Groupe implements Composant, IterableComposant, Serializable {
     /**
      * Constructeur.
      * Crée un groupe vide a partir d'un nom.
-     * @param n  Nom du groupe
+     * @param i Identifiant
+     * @param n Nom du groupe
      */
-    public Groupe(final String n) {
+    public Groupe(final int i, final String n) {
+        this.id = i;
         this.nom = n;
         composantFils = new ArrayList<Composant>();
     }
@@ -43,7 +45,7 @@ public class Groupe implements Composant, IterableComposant, Serializable {
 
     /**
      * Retourne le composant du groupe se trouvant à index.
-     * @param index    indice du composant à retourner
+     * @param index indice du composant à retourner
      * @return Composant recherché
      */
     public Composant get(final int index) {
@@ -51,9 +53,17 @@ public class Groupe implements Composant, IterableComposant, Serializable {
     }
 
     /**
+     * Retourne l'identifiant.
+     * @return Identifiant
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
      * Retourne le composant du groupe se trouvant à index.
      * Le retire du groupe.
-     * @param index    indice du composant à retourner
+     * @param index indice du composant à retourner
      * @return Composant recherché
      */
     public Composant remove(final int index) {
@@ -70,16 +80,15 @@ public class Groupe implements Composant, IterableComposant, Serializable {
         int result = 1;
         result = prime * result
                 + ((composantFils == null) ? 0 : composantFils.hashCode());
-        result = prime * result
-                + ((nom == null) ? 0 : nom.hashCode());
+        result = prime * result + ((nom == null) ? 0 : nom.hashCode());
         return result;
     }
 
     /**
      * Teste l'égalité entre deux groupes.
-     * Deux groupes sont égaux quand ils contiennent exactement
-     * les mêmes éléments.
-     * @param  obj   composant à comparer
+     * Deux groupes sont égaux quand ils contiennent exactement les mêmes
+     * éléments.
+     * @param obj composant à comparer
      * @return true si égaux, false sinon
      */
     @Override
@@ -162,7 +171,7 @@ public class Groupe implements Composant, IterableComposant, Serializable {
 
     /**
      * Retourne un itérateur de la composition du groupe.
-     * @return  Iterateur
+     * @return Iterateur
      */
     public IterateurComposant iterateur() {
         IterateurComposant ite = new IterateurComposant(this.composantFils);

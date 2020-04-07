@@ -8,6 +8,8 @@ import java.io.Serializable;
  * @author Flora
  */
 public class Telephone implements Serializable {
+    /** Identifiant unique. */
+    private final int id;
     /** Information. */
     private String information;
     /** Numero. */
@@ -15,14 +17,23 @@ public class Telephone implements Serializable {
 
     /**
      * Constructeur.
-     * Crée un téléphone grâce à un numéro
-     * et l'information correspondante.
-     * @param num  Numero
+     * Crée un téléphone grâce à un numéro et l'information correspondante.
+     * @param i Identifiant
+     * @param num Numero
      * @param info Information
      */
-    public Telephone(final String num, final String info) {
+    public Telephone(final int i, final String num, final String info) {
+        this.id = i;
         this.information = info;
         this.numero = num;
+    }
+
+    /**
+     * Retourne l'identifiant.
+     * @return Identifiant
+     */
+    public int getId() {
+        return id;
     }
 
     /**
@@ -35,15 +46,14 @@ public class Telephone implements Serializable {
         int result = 1;
         result = prime * result
                 + ((information == null) ? 0 : information.hashCode());
-        result = prime * result
-                + ((numero == null) ? 0 : numero.hashCode());
+        result = prime * result + ((numero == null) ? 0 : numero.hashCode());
         return result;
     }
 
     /**
      * Teste l'égalite de deux téléphone.
-     * Deux téléphone sont égaux quand à la fois
-     * leurs numéros et informations sont la même.
+     * Deux téléphone sont égaux quand à la fois leurs numéros et informations
+     * sont la même.
      * @param obj Téléphone à comparer
      * @return true si égaux, false sinon
      */

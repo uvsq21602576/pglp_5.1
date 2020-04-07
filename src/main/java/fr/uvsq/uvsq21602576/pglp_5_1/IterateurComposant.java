@@ -15,7 +15,7 @@ public class IterateurComposant {
     /**
      * Constructeur.
      * Crée un itérateur à partir d'une liste de composants.
-     * @param groupe    Liste de composants
+     * @param groupe Liste de composants
      */
     public IterateurComposant(final ArrayList<Composant> groupe) {
         this.list = new ArrayList<Composant>();

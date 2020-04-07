@@ -9,18 +9,24 @@ import java.util.ArrayList;
  * @author Flora
  */
 public class Annuaire implements Serializable {
+
+    /**
+     * Identifiant unique d'annuaire.
+     */
+    private final int id;
     /**
      * Racine de l'arbre de composant.
      */
     private Composant racine;
 
-
     /**
      * Constructeur.
      * Crée un annuaire avec pour racine r
+     * @param i Identifiant
      * @param r Racine de l'arbre de composant
      */
-    public Annuaire(final Composant r) {
+    public Annuaire(final int i, final Composant r) {
+        this.id = i;
         this.racine = r;
     }
 
@@ -60,7 +66,7 @@ public class Annuaire implements Serializable {
             c = aTraiter.remove(0);
             s = s.concat(c.toString() + "\n");
             if (c instanceof IterableComposant) {
-                IterateurComposant ite  = ((IterableComposant) c).iterateur();
+                IterateurComposant ite = ((IterableComposant) c).iterateur();
                 while (ite.hasNext()) {
                     aTraiterSuiv.add(ite.next());
                 }
@@ -70,7 +76,7 @@ public class Annuaire implements Serializable {
     }
 
     /**
-     * Méthode hashCode
+     * Méthode hashCode.
      * @return haché
      */
     @Override
@@ -83,13 +89,13 @@ public class Annuaire implements Serializable {
 
     /**
      * Teste l'égalité entre deux Annuaire.
-     * Deux annuaires sont égaux quand l'arbre qu'ils
-     * présentent est le même.
-     * @param obj  objet à comparer
+     * Deux annuaires sont égaux quand
+     * l'arbre qu'ils présentent est le même.
+     * @param obj objet à comparer
      * @return true si égaux, false sinon
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -105,5 +111,13 @@ public class Annuaire implements Serializable {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Retourne l'identifiant.
+     * @return Identifiant
+     */
+    public int getId() {
+        return id;
     }
 }
